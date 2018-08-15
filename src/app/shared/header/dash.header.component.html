@@ -1,0 +1,100 @@
+<mat-toolbar>
+    <button mat-mini-fab color="warn">
+        <mat-icon>dashboard</mat-icon>
+    </button>
+  <mat-icon class="example-icon" color="primary">{{ imageUrl }}</mat-icon>
+  <span>{{ pageTitle }}</span>
+  <span class="example-spacer"></span>
+  <!--<span matTooltip="Top Sellers" color="green"><button mat-icon-button routerLink="/settings"><mat-icon>trending_up</mat-icon></button></span>
+  <span matTooltip="Discount Items" color="warn"><button mat-icon-button routerLink="/settings"><mat-icon>money_off</mat-icon></button></span>-->
+  <span matTooltip="My Account"><button mat-icon-button routerLink="/settings"><mat-icon [color]="userLoggedInColor">account_box</mat-icon></button></span>
+  <span matTooltip="Shopping Cart"><button mat-icon-button routerLink="/shopping"><mat-icon matBadge="{{ counter }}" matBadgeColor="warn">add_shopping_cart</mat-icon></button></span>
+  <!--<span matTooltip="Security Policy" [matMenuTriggerFor]="helpSecMenu"><button mat-icon-button><mat-icon svgIcon="security"></mat-icon></button></span>-->
+  <span matTooltip="Help" [matMenuTriggerFor]="helpMenu"><button mat-icon-button><mat-icon>contact_support</mat-icon></button></span>
+  <span matTooltip="eMail"><button mat-icon-button (click)="formShowing=!formShowing"><mat-icon>email</mat-icon></button></span>
+  <span matTooltip="Connect with us" [matMenuTriggerFor]="contactMenu"><button mat-icon-button><mat-icon>contact_mail</mat-icon></button></span>
+  <mat-menu #contactMenu="matMenu">
+      <a href="{{ configData.homelink }}" target="_blank">
+          <button mat-menu-item>
+            <mat-icon matTooltip="Elish ERP Dashboard">dashboard</mat-icon>
+          </button>
+        </a>
+      <a href="{{ configData.fblink }}" target="_blank">
+        <button mat-menu-item>
+          <mat-icon matTooltip="connect with FaceBook" svgIcon="facebook"></mat-icon>
+        </button>
+      </a>
+      <a href="{{ configData.linkedin }}" target="_blank">
+        <button mat-menu-item>
+          <mat-icon matTooltip="connect with LinkedIn" svgIcon="linkedin"></mat-icon>
+        </button>
+      </a>
+      <a href="{{ configData.github }}" target="_blank">
+        <button mat-menu-item>
+          <mat-icon matTooltip="connect with GitHub" svgIcon="github"></mat-icon>
+        </button>
+      </a>
+      <a href="{{ configData.emailid }}" target="_blank">
+        <button mat-menu-item>
+          <mat-icon matTooltip="email">email</mat-icon>
+        </button>
+      </a>
+      <button mat-menu-item routerLink="/aboutus">
+          <mat-icon matTooltip="About us" color="primary">info</mat-icon>
+      </button>
+      <button mat-menu-item routerLink="/admin">
+        <mat-icon matTooltip="Admin" color="primary">settings</mat-icon>
+    </button>
+    </mat-menu>
+</mat-toolbar>
+<mat-menu #helpSecMenu="matMenu">
+  <helpdesk helpType="security"></helpdesk>
+</mat-menu>
+<mat-menu #helpMenu="matMenu">
+    <helpdesk helpType="{{ helpType }}"></helpdesk>
+</mat-menu>
+<mat-card class="form" *ngIf="formShowing">
+  <form #emailForm="ngForm" class="example-form">
+    <mat-card-title>Contact Us</mat-card-title>
+    <mat-card-content *ngIf="!emailSent else showEmailSentCard">
+        <mat-error *ngIf="brokenNetwork">Network connection error.</mat-error>
+      <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Name" id="name" name="name" #name="ngModel" ngModel required
+          minlength="3" maxlength="30">
+      </mat-form-field>
+      <span *ngIf="name.invalid && (name.dirty || name.touched)">
+      <mat-error *ngIf="name.errors['required']">Name is required.</mat-error>
+      <mat-error *ngIf="name.errors['minlength']">Name should be minimum 3 Characters.</mat-error>
+      <mat-error *ngIf="name.errors['maxlength']">Name should be maximum 30 Characters.</mat-error>
+      </span>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Phone" name="phone" #phone="ngModel" ngModel required minlength="10" maxlength="10"
+          pattern="[0-9]+">
+      </mat-form-field>
+      <mat-error *ngIf="phone.invalid && (phone.dirty || phone.touched)">10 Digits valid phone number (digits) is required.</mat-error>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="eMail" name="email" #email="ngModel" ngModel required email>
+      </mat-form-field>
+      <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">A Valid email is required.</mat-error>
+      <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Message" name="message" #message="ngModel" ngModel required minlength="10"
+          maxlength="200">
+        </textarea>
+      </mat-form-field>
+      <mat-hint align="end">{{message.value?.length}} / 200</mat-hint>
+      <mat-error *ngIf="message.invalid && (message.dirty || message.touched)">Message is required.</mat-error>
+      <mat-card-actions align="start">
+        <button type="submit" (click)="onSubmit(emailForm.value);this.emailForm.reset();" mat-raised-button [disabled]="!emailForm.valid"
+          color="primary">Post</button>
+      </mat-card-actions>
+    </mat-card-content>
+    <ng-template #showEmailSentCard>
+      <mat-card-title>
+        <font color="red">eMail is sent.</font>
+      </mat-card-title>
+      <mat-card-actions align="start">
+        <button type="button" (click)="this.emailForm.reset();emailSent=false;formShowing=!formShowing;" mat-raised-button color="primary">Close</button>
+      </mat-card-actions>
+    </ng-template>
+  </form>
+</mat-card>

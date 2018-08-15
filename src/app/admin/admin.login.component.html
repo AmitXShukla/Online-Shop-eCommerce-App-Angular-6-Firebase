@@ -1,0 +1,27 @@
+<dash-header pageTitle="Admin" imageUrl="settings" helpType="homepage"></dash-header>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>dashboard</mat-icon>Elish Consulting</mat-card-title>
+    <mat-card-subtitle>eCommerce App Admin Login</mat-card-subtitle>
+  </mat-card-header>
+  <mat-progress-bar mode="indeterminate" *ngIf="dataLoading"></mat-progress-bar>
+  <mat-error *ngIf="error">Error: {{ errorMessage }}</mat-error>
+  <mat-card-content *ngIf="!this.myDocData else showAdminPanel">
+    <mat-divider></mat-divider>
+    <mat-card-actions align="start">
+      <button type="button" (click)="loginAdmin()" mat-raised-button color="primary">Admin SignIn</button>
+      <br/><br/>
+      <button type="button" (click)="logout()" mat-raised-button color="primary">Logout</button>
+    </mat-card-actions>
+  </mat-card-content>
+  <ng-template #showAdminPanel>
+    Welcome {{ myDocData.center }} Admin.
+    <br/>
+    <br/>
+    <button type="button" (click)="setPreferences(this.myDocData.center,this.myDocData.token)" mat-raised-button color="primary">Manage Center</button>
+    <br/>
+    <br/>
+    <button type="button" (click)="logout()" mat-raised-button color="primary">Logout</button>
+  </ng-template>
+</mat-card>
