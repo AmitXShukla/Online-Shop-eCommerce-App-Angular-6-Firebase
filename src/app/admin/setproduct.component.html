@@ -8,11 +8,11 @@
                         color="primary">Search</button>
                     <span class="med-spacer"></span>
                     <span matTooltip="Add New">
-                        <mat-icon color="primary" (click)="toggle('addMode');" svgIcon="add"></mat-icon>
+                        <mat-icon color="primary" (click)="toggle('addMode');">add</mat-icon>
                     </span>
                     <span class="small-spacer"></span>
                     <span matTooltip="Show Recent Results">
-                        <mat-icon color="primary" (click)="toggle('resMode');getData();" svgIcon="cached"></mat-icon>
+                        <mat-icon color="primary" (click)="toggle('resMode');getData();">cached</mat-icon>
                     </span>
                 </mat-card-actions>
                 <mat-form-field class="example-form">
@@ -46,7 +46,7 @@
         <mat-error *ngIf="savedChanges">
             Data is saved.
             <label class="small-spacer"></label>
-            <mat-icon (click)="this.addDataForm.reset();savedChanges=false;toggle('searchMode');" svgIcon="clear"></mat-icon>
+            <mat-icon (click)="this.addDataForm.reset();savedChanges=false;toggle('searchMode');">clear</mat-icon>
         </mat-error>
         <div *ngIf="!savedChanges">
             <mat-progress-bar mode="indeterminate" *ngIf="dataLoading"></mat-progress-bar>
@@ -56,11 +56,11 @@
                 <button type="reset" (click)="this.addDataForm.reset();" mat-raised-button [disabled]="!addDataForm.valid" color="primary">Clear</button>
                 <span class="med-spacer"></span>
                 <span matTooltip="Search">
-                    <mat-icon color="primary" (click)="toggle('searchMode')" svgIcon="search"></mat-icon>
+                    <mat-icon color="primary" (click)="toggle('searchMode')">search</mat-icon>
                 </span>
                 <span class="small-spacer"></span>
                 <span matTooltip="Show Recent Results">
-                    <mat-icon color="primary" (click)="toggle('resMode');getData();" svgIcon="cached"></mat-icon>
+                    <mat-icon color="primary" (click)="toggle('resMode');getData();">cached</mat-icon>
                 </span>
             </mat-card-actions>
             <mat-form-field>
@@ -119,7 +119,7 @@
         <mat-error *ngIf="savedChanges">
             Data is saved.
             <label class="small-spacer"></label>
-            <mat-icon (click)="this.editDataForm.reset();savedChanges=false;toggle('searchMode');" svgIcon="clear"></mat-icon>
+            <mat-icon (click)="this.editDataForm.reset();savedChanges=false;toggle('searchMode');">clear</mat-icon>
         </mat-error>
         <div *ngIf="!savedChanges">
             <mat-progress-bar mode="indeterminate" *ngIf="dataLoading"></mat-progress-bar>
@@ -128,11 +128,11 @@
                 <button type="submit" mat-raised-button [disabled]="!this.editDataForm.valid || this.editDataForm.pristine" color="primary">Update</button>
                 <span class="med-spacer"></span>
                 <span matTooltip="Search">
-                    <mat-icon color="primary" (click)="toggle('searchMode')" svgIcon="search"></mat-icon>
+                    <mat-icon color="primary" (click)="toggle('searchMode')">search</mat-icon>
                 </span>
                 <span class="small-spacer"></span>
                 <span matTooltip="Shwo Recent Results">
-                    <mat-icon color="primary" (click)="toggle('resMode');getData();" svgIcon="cached"></mat-icon>
+                    <mat-icon color="primary" (click)="toggle('resMode');getData();">cached</mat-icon>
                 </span>
             </mat-card-actions>
             <mat-form-field>
@@ -190,11 +190,11 @@
         <span class="med-spacer"></span>
         <span class="med-spacer"></span>
         <span matTooltip="Add New">
-            <mat-icon color="primary" (click)="toggle('addMode')" svgIcon="add"></mat-icon>
+            <mat-icon color="primary" (click)="toggle('addMode')">add</mat-icon>
         </span>
         <span class="small-spacer"></span>
         <span matTooltip="Search All">
-            <mat-icon color="primary" (click)="toggle('searchMode')" svgIcon="search"></mat-icon>
+            <mat-icon color="primary" (click)="toggle('searchMode')">search</mat-icon>
         </span>
     </mat-card-actions>
     <div *ngIf="takeHostSelfie" width="300">
@@ -244,12 +244,12 @@
                             *ngIf="!row.path" class="label-error"><mat-icon>camera_roll</mat-icon></button>
                     <span matTooltip="Edit">
                         <button mat-icon-button (click)="getDoc(row._id)">
-                            <mat-icon color="primary" svgIcon="edit"></mat-icon>
+                            <mat-icon color="primary">edit</mat-icon>
                         </button>
                     </span>
                     <span matTooltip="Delete">
                         <button mat-icon-button (click)="deleteDoc(row._id)">
-                            <mat-icon color="primary" svgIcon="delete"></mat-icon>
+                            <mat-icon color="primary">delete</mat-icon>
                         </button>
                     </span>
                 </mat-cell>
