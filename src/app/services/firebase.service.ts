@@ -181,6 +181,23 @@ export class FirebaseService {
             delete_flag: "N",
         });
     }
+    updateShoppingInterest(coll: string, data){
+        const id = this.afs.createId();
+        const item = { id, name };
+        const timestamp = this.timestamp
+        var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(item.id);
+        return docRef.set({
+            ...data,
+            author: this.afAuth.auth.currentUser.uid,
+            authorName: this.afAuth.auth.currentUser.displayName,
+            authorEmail: this.afAuth.auth.currentUser.email,
+            authorPhoto: this.afAuth.auth.currentUser.photoURL,
+            authorPhone: this.afAuth.auth.currentUser.phoneNumber,
+            updatedAt: timestamp,
+            createdAt: timestamp,
+            delete_flag: "N",
+        });
+    }
     getCart(coll: string) {
         return this.afs.collection(this.getCollectionURL(coll), ref =>
             ref.where('delete_flag', '==', 'N')

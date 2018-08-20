@@ -48,5 +48,9 @@ service cloud.firestore {<br>
       allow read: if isSignedIn() && isDocOwner();<br>
       allow write: if isSignedIn();<br>
     }<br>
+    match /estore/{document}/interests/{shoppingcart} {<br>
+      allow read: if false;<br>
+      allow write: if isSignedIn();<br>
+    }
   }<br>
 }<br>

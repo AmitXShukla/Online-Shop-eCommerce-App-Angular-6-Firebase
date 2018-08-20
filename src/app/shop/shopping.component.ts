@@ -73,7 +73,13 @@ export class ShoppingComponent implements OnInit, OnDestroy {
     showDetails(item) {
         this.counter = 0;
         this.myDocData = item;
-        return this.getPic(item.path);
+        this.getPic(item.path);
+        // capture user interest event, user has looked into product details
+        this.dataLoading = true;
+        let data = item;
+        return this._backendService.updateShoppingInterest('interests',data).then((success)=> {
+            this.dataLoading = false;
+        });
     }
     countProd(filter) {
         if (filter == "add") {
