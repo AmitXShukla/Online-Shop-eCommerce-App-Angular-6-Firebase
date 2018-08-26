@@ -1,5 +1,5 @@
 <h2><u>Online Store eCommerce App</u></h2>
-<h4><u>Part -2</u></h4>
+<h4><u>Part -1</u></h4>
 In this part, We will install all necessary development tools requied for this project.<br/>
 
 <h4><u>Let's get started</u></h4>
