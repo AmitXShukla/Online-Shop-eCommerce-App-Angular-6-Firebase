@@ -1,56 +1,57 @@
-<h2>Download Online Store eCommerce App in Angular 6 + Firebase with complete source code</h2>
+<h2><u>Online Store eCommerce App</u></h2>
+<h4><u>Part -2</u></h4>
+In this part, We will install all necessary development tools requied for this project.<br/>
+
+<h4><u>Let's get started</u></h4>
+Step 1: Install VSCode<br/><br/>
+Step 2: Install NodeJS<br/>
+https://nodejs.org/en/<br/><br/>
+
+<span style="color:green">VSCODE > Terminal > node -v</span>  // show current node version installed<br>
+<span style="color:green">npm -v</span> // show current npm version<br><br>
+Step 3:<br>
+$npm install -g @angular/cli<br><br>
+<span style="color:green">ng -v</span> // show current Angular-Cli version<br>
+<span style="color:green">ng new onlinestore</span> // create a new ng app<br>
+<span style="color:green"> cd onlinestore</span><br>
+<h4> Clean up tasks:</h4>
+<span style="color:green">copy over favicon.ico in assets/icon directory</span><br>
+<span style="color:green">update index.html to reflect new favicon.ico changes</span><br>
+<span style="color:green">update polyfill.json</span><br> - In case of using web animations or if you are planning to support older browser versions.<br>
+<span style="color:green">and in case of adding a polyfill, please make sure to npm install related package for chosen polyfill.</span><br>
+<span style="color:green"><h4>update gitignore file</h4></span>
+- Please include files/folder which you do not wish to include to Git Repository like < dist > or < node_modules > folder
+OR environment.ts, environment.prod.ts etc
+
+<h4>update Angular-cli.json settings </h4>
+<span style="color:green">"prefix": "app" </span><br>
+get rid of "app" prefix, otherwise, this setting will prefix, all selector with this string, like FooterComponent will have selector = app-footer
 <br>
-In this video, I will show you one complete Online Store eCommerce App using all latest versions like Angular 6, Angularfire2 and Google Firebase/Firestore database, You will be able to download entire source code, deploy it on your local machine or cloud and I will leave it up to you if you want to enhance this and make more changes.<br/>
-THis tutorial is not for beginners and is not for teaching purpose, but you don't need to be an expert either to understand these technologies.<br/>
-I recommend to please take this video as a design pattern discussion where I am showing how we can use different technologies to solve real work problems and deliver a great quality app.<br/>
+<h4> Step 2: Install Angular Materials</h4>
+<span style="color:green">npm install --save @angular/material @angular/cdk @angular/animations hammerjs</span><br>
 
-<b>Objective: </b> This document serves as an Installation Guide for Elish eStore Cloud free commmunity version Desktop/Mobile App.<br><br>
-<b>Tools: </b> Angular 6, Google Firebase/Firestore<br/>
+<h4> Step 3. Include a theme</h4>
+add this to styles.css or copy this over to assets/css directory<br>
 
-<h2><u>What's included :</u></h2>
-In this repository, Only Online Shop portal is included.
-<h2><u>Elish CRM Cloud v1.1.8</u></h2>
-Elish CRM Cloud provide a completely free desktop and mobile app for managing Customer, Vendors, CRM and other management modules.<br><br>
-<u><i>future update/version/releases after v1.1.8 baseline release, will include new features and bug fixes for free under community license. For enhancement/feature requests, please open a new issue at this Github Repository.</i></u><br><br>
-<h2><u>App Choices:</u></h2>
-#A. Elish HCM Cloud also provide a free web and mobile Enterprise app, hosted on Google Cloud with Google Firebase/Firestore database at:<br><br>
-https://alivetracking.com<br>
-Google Playstore - https://alivetracking.com<br><br>
-#B. For Community/Developer edition, developers can download a copy of "out of the box installable software package" or complete source code for free.<br><br>
+<span style="color:green">@import "~@angular/material/prebuilt-themes/indigo-pink.css";</span><br>
+<span style="color:green"> ng serve</span><br>
 
-Below documentation serves as installation instruciton for point #B mentioned above.<br>
-1. Installation Instruction for "out of the box Installable Desktop/Mobile App"<br>
-2. Community/Developers Open Source Code guide<br>
-<h2><u>Installation Instruction for "out of the box Installable Desktop/Mobile App"</u><h2>
-------------------------------------------------------------------------------------
+<h4> Step 4. Google Material Icons</h4>
+< link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" >
 
-<u><i>If you wish to migrate/upgrade your old desktop or client/server software to enterprise desktop/mobile app, please write to info@elishconsulting.com for Enterprise version upgrade.</i></u><br><br>
-<b>Step #1:</b> Install NodeJS, Angular CLI<br>
-Please follow Video Tutorials along installation instruction and proceed to next step when database installation is complete and verified.<br><br>
-<b>Step #2:</b> Signup with Google Firebase<br>
-Please follow Video Tutorials along installation instruction and proceed to next step when database installation is complete and verified.<br><br>
-1. Setup Firebase Sign-in methods (enable Google, Facebook and email signin)<br>
-2. Make sure, Firebase Sign-in method include your domain for autherntication.<br>
-3. Open Firebase > Database > rules <br>
-copy paste following code in rules tab, save and publish.<br><br>
-service cloud.firestore {<br>
-  match /databases/{database}/documents {<br>
-  	// rules for estore collections<br>
-  	 match /estore/{document} {<br>
-      allow read: if request.auth.uid == get(/databases/$(database)/documents/estore/$(request.auth.uid)).data.authid;<br>
-      allow write: if false;<br>
-    }<br>
-    match /estore/{document}/product/{prods} {<br>
-      allow read: if true;<br>
-      allow write: if request.auth.uid == get(/databases/$(database)/documents/estore/$(request.auth.uid)).data.authid;<br>
-    }<br>
-    match /estore/{document}/cart/{shoppingcart} {<br>
-      allow read: if isSignedIn() && isDocOwner();<br>
-      allow write: if isSignedIn();<br>
-    }<br>
-    match /estore/{document}/interests/{shoppingcart} {<br>
-      allow read: if false;<br>
-      allow write: if isSignedIn();<br>
-    }
-  }<br>
-}<br>
+_________________________
+
+<h4>create custom material module</h4>
+<span style="color:green">ng g module shared/custommaterial</span><br>
+
+<h4>update app.module.ts</h4> to include ElishCustomMaterialModule in IMPORT section <br>
+<span style="color:green">(add to IMPORT section)</span>
+
+<h4>Now You have all Angular Material dependencies installed.</h4>
+
+ng g module app-routing --flat --module=app<br>
+ng g c shared/aboutus<br>
+ng g c shared/header<br>
+ng g c shared/footer<br><br>
+
+Make sure all these components are included in routes and routes are accessible.<br>
