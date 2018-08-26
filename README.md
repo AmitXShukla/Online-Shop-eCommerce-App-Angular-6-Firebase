@@ -55,3 +55,4 @@ ng g c shared/header<br>
 ng g c shared/footer<br><br>
 
 Make sure all these components are included in routes and routes are accessible.<br>
+If time permits, include a router.animation.ts file for anlimation effects.
