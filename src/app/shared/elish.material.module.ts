@@ -35,6 +35,9 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatIconRegistry} from '@angular/material';
+import { AboutusComponent } from './aboutus/aboutus.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -98,8 +101,7 @@ import {MatIconRegistry} from '@angular/material';
         MatExpansionModule,
         MatRadioModule,
         MatBadgeModule
-        ],
-    declarations: []
+        ]
 })
 export class ElishCustomMaterialModule { 
     constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {

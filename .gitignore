@@ -3,13 +3,13 @@
 # compiled output
 /dist
 /tmp
-# /environments
 /out-tsc
 
 # dependencies
 /node_modules
-
+/e2e
 package-lock.json
+
 # IDEs and editors
 /.idea
 .project
