@@ -1,5 +1,7 @@
 <h2>Download Online Store eCommerce App in Angular 6 + Firebase with complete source code</h2>
 <br>
+<a href="https://www.youtube.com/playlist?list=PLp0TENYyY8lEjtN1YiJTCTFP7OpQ4Fmuo" target="_blank">Click here for Video Tutorial !</a>
+<br>
 In this video, I will show you one complete Online Store eCommerce App using all latest versions like Angular 6, Angularfire2 and Google Firebase/Firestore database, You will be able to download entire source code, deploy it on your local machine or cloud and I will leave it up to you if you want to enhance this and make more changes.<br/>
 THis tutorial is not for beginners and is not for teaching purpose, but you don't need to be an expert either to understand these technologies.<br/>
 I recommend to please take this video as a design pattern discussion where I am showing how we can use different technologies to solve real work problems and deliver a great quality app.<br/>
