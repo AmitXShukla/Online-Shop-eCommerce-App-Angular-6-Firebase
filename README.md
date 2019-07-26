@@ -1,4 +1,5 @@
 <h2>Download Online Store eCommerce App in Angular 6 + Firebase with complete source code</h2>
+<b><u><font color="red" size = "+1">This repo is due upgrade to Angular 8 and will be updated to newer version Aug 7, 2019</font></u></b>
 <br>
 <a href="https://www.youtube.com/playlist?list=PLp0TENYyY8lEjtN1YiJTCTFP7OpQ4Fmuo" target="_blank">Click here for Video Tutorial !</a>
 <br>
