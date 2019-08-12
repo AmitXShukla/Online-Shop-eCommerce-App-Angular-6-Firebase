@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
+//import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { environment } from '../../environments/environment';
+import { auth } from 'firebase/app';
+import { Observable, of } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
+import { firestore } from 'firebase/app';
 
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+// import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -135,28 +141,33 @@ export class FirebaseService {
         return this.afs.collection(this.getCollectionURL(coll), ref =>
             ref.where('delete_flag', '==', 'N')
                 .orderBy('name', 'desc')
-        )
-            .snapshotChanges().map(actions => {
-                return actions.map(a => {
-                    const data = a.payload.doc.data();
-                    const id = a.payload.doc.id;
-                    return { id, ...data };
-                });
-            });
+        ).valueChanges();
+        // return this.afs.collection(this.getCollectionURL(coll), ref =>
+        //     ref.where('delete_flag', '==', 'N')
+        //         .orderBy('name', 'desc')
+        // )
+        //     .snapshotChanges().map(actions => {
+        //         return actions.map(a => {
+        //             const data = a.payload.doc.data();
+        //             const id = a.payload.doc.id;
+        //             return { id, ...data };
+        //         });
+        //     });
     }
     getFilterProducts(coll: string, filters) {
         return this.afs.collection(this.getCollectionURL(coll), ref =>
         ref.where('delete_flag', '==', 'N')
             .where('tags' , 'array-contains', filters)
             .orderBy('tags', 'desc')
-    )
-        .snapshotChanges().map(actions => {
-            return actions.map(a => {
-                const data = a.payload.doc.data();
-                const id = a.payload.doc.id;
-                return { id, ...data };
-            });
-        });
+    ).valueChanges();
+        // .snapshotChanges()
+        // .map(actions => {
+        //     return actions.map(a => {
+        //         const data = a.payload.doc.data();
+        //         const id = a.payload.doc.id;
+        //         return { id, ...data };
+        //     });
+        // });
     }
     deleteProduct(coll,docId){
         return this.deleteDoc(this.getCollectionURL(coll),docId);
@@ -203,14 +214,14 @@ export class FirebaseService {
             ref.where('delete_flag', '==', 'N')
                 .where('author', '==', this.afAuth.auth.currentUser.uid)
                 .orderBy('name', 'desc')
-        )
-            .snapshotChanges().map(actions => {
-                return actions.map(a => {
-                    const data = a.payload.doc.data();
-                    const id = a.payload.doc.id;
-                    return { id, ...data };
-                });
-            });
+        ).valueChanges();
+            // .snapshotChanges().map(actions => {
+            //     return actions.map(a => {
+            //         const data = a.payload.doc.data();
+            //         const id = a.payload.doc.id;
+            //         return { id, ...data };
+            //     });
+            // });
     }
     // helper functions
     getDoc(coll: string, docId: string) {
@@ -259,28 +270,28 @@ export class FirebaseService {
                         ref.where('name', '>=', filters.name)
                             .where('delete_flag', '==', 'N')
                             .orderBy('name', 'desc')
-                    )
-                        .snapshotChanges().map(actions => {
-                            return actions.map(a => {
-                                const data = a.payload.doc.data();
-                                const id = a.payload.doc.id;
-                                return { id, ...data };
-                            });
-                        });
+                    ).valueChanges();
+                        // .snapshotChanges().map(actions => {
+                        //     return actions.map(a => {
+                        //         const data = a.payload.doc.data();
+                        //         const id = a.payload.doc.id;
+                        //         return { id, ...data };
+                        //     });
+                        // });
                 }
                 if (filters.category > "") {
                     return this.afs.collection(coll, ref =>
                         ref.where('category', '>=', filters.category)
                             .where('delete_flag', '==', 'N')
                             .orderBy('category', 'desc')
-                    )
-                        .snapshotChanges().map(actions => {
-                            return actions.map(a => {
-                                const data = a.payload.doc.data();
-                                const id = a.payload.doc.id;
-                                return { id, ...data };
-                            });
-                        });
+                    ).valueChanges();
+                        // .snapshotChanges().map(actions => {
+                        //     return actions.map(a => {
+                        //         const data = a.payload.doc.data();
+                        //         const id = a.payload.doc.id;
+                        //         return { id, ...data };
+                        //     });
+                        // });
                 } else {
                     let fromDt = new Date(filters.fromdt);
                     let toDt = new Date(filters.todt);
@@ -289,27 +300,28 @@ export class FirebaseService {
                             .where('updatedAt', '<', toDt)
                             .where('delete_flag', '==', 'N')
                             .orderBy('updatedAt', 'desc')
-                    )
-                        .snapshotChanges().map(actions => {
-                            return actions.map(a => {
-                                const data = a.payload.doc.data();
-                                const id = a.payload.doc.id;
-                                return { id, ...data };
-                            });
-                        });
+                    ).valueChanges();
+                        // .snapshotChanges().map(actions => {
+                        //     return actions.map(a => {
+                        //         const data = a.payload.doc.data();
+                        //         const id = a.payload.doc.id;
+                        //         return { id, ...data };
+                        //     });
+                        // });
                 }
             } else {
                 return this.afs.collection(coll, ref =>
                     ref.where('delete_flag', '==', 'N')
                         .orderBy('name')
                         .orderBy('updatedAt', "desc"))
-                    .snapshotChanges().map(actions => {
-                        return actions.map(a => {
-                            const data = a.payload.doc.data();
-                            const id = a.payload.doc.id;
-                            return { id, ...data };
-                        });
-                    });
+                        .valueChanges();
+                    // .snapshotChanges().map(actions => {
+                    //     return actions.map(a => {
+                    //         const data = a.payload.doc.data();
+                    //         const id = a.payload.doc.id;
+                    //         return { id, ...data };
+                    //     });
+                    // });
             }
     }
 
@@ -368,6 +380,10 @@ export class FirebaseService {
         name: '',
         email: ''
     }
+
+    getUser(): Promise<any> {
+        return this.afAuth.authState.pipe(take(1)).toPromise();
+      }
 
     getUserAuth(coll?: string, docId?: string) {
         if (!coll) { coll = this._userAuthColl; }
@@ -434,6 +450,7 @@ export class FirebaseService {
     }
 
     // helper functions
+    /**
     OLD_Method_getDocs(coll: string, filters?: any) {
         if (localStorage.getItem('eCRMkeyA') == '7PjNil') { //not an admin user
             if (filters) {
@@ -567,6 +584,7 @@ export class FirebaseService {
             }
         }
     }
+    */
 
     OLD_Method_setNewDoc(coll: string, data: any, docId?: any) {
         const id = this.afs.createId();

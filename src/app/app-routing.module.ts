@@ -9,7 +9,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminLoginComponent } from './admin/admin.login.component';
 import { SetProductComponent } from './admin/setproduct.component';
 import { ShoppingComponent } from './shop/shopping.component';
-import { AuthGuard } from './services/auth-guard.service';
+import { AuthGuardService } from './services/auth-guard.service';
 import { AuthGuardAdmin } from './services/auth-guard.admin.service';
 
 const routes: Routes = [
@@ -17,11 +17,11 @@ const routes: Routes = [
   { path: 'aboutus', component: AboutusComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
-  { path: 'admin', component: AdminLoginComponent, canActivate: [AuthGuard] },
-  { path: 'adminmanage', component: AdminComponent, canActivate: [AuthGuard, AuthGuardAdmin] },
-  { path: 'set-product', component: SetProductComponent, canActivate: [AuthGuard, AuthGuardAdmin] },
-  { path: 'shopping', component: ShoppingComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuardService] },
+  { path: 'admin', component: AdminLoginComponent, canActivate: [AuthGuardService] },
+  { path: 'adminmanage', component: AdminComponent, canActivate: [AuthGuardService, AuthGuardAdmin] },
+  { path: 'set-product', component: SetProductComponent, canActivate: [AuthGuardService, AuthGuardAdmin] },
+  { path: 'shopping', component: ShoppingComponent, canActivate: [AuthGuardService] },
   { path: '**', redirectTo: '/login', pathMatch: 'full' }
 ];
 

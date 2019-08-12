@@ -30,8 +30,10 @@ export class AdminComponent implements OnInit {
     dataLoading: boolean = false;
     private querySubscription;
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
+    // @ViewChild(MatPaginator) paginator: MatPaginator;
+    // @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
     displayedColumns = ['code', 'descr', '_id'];
 
     ngOnInit() {

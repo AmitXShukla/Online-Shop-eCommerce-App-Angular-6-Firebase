@@ -9,10 +9,14 @@ import { HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
 
 // firebase modules
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireStorageModule } from 'angularfire2/storage';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+//import { AngularFireModule } from 'angularfire2';
+// import { AngularFirestoreModule } from 'angularfire2/firestore';
+// import { AngularFireStorageModule } from 'angularfire2/storage';
+// import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { firebase } from '@firebase/app';
 
 import { AppComponent } from './app.component';
@@ -23,7 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AboutusComponent } from './aboutus/aboutus.component';
 
 import { HelpdeskComponent } from './shared/helpdesk/helpdesk.component';
-import { AuthGuard } from './services/auth-guard.service';
+import { AuthGuardService } from './services/auth-guard.service';
 import { AuthGuardAdmin } from './services/auth-guard.admin.service';
 
 // admin pages
@@ -73,7 +77,7 @@ import { FileSizePipe } from './shared/dropzone/filesize.pipe';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     AngularFireStorageModule
   ],
-  providers: [AuthGuard, AuthGuardAdmin],
+  providers: [AuthGuardService, AuthGuardAdmin],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

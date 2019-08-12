@@ -1,5 +1,5 @@
 import { Component,Input } from '@angular/core';
-import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { Observable } from 'rxjs/Observable';
 import { tap } from 'rxjs/operators';
 import { finalize } from 'rxjs/operators';

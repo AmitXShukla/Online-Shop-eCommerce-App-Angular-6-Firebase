@@ -1,6 +1,7 @@
 import { Component, OnInit,AfterViewInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from 'angularfire2/auth';
+// import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { firebase } from '@firebase/app';
 import { environment } from '../../../environments/environment';
 import { FirebaseService } from '../../services/firebase.service';

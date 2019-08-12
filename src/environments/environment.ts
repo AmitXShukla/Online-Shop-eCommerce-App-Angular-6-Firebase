@@ -5,8 +5,9 @@ export const environment = {
     authDomain: "",
     databaseURL: "",
     projectId: "elishcrm",
-    storageBucket: "",
-    messagingSenderId: ""
+    storageBucket: "elishcrm.appspot.com",
+    messagingSenderId: "",
+    appId: ""
   },
   emailAPI: 'http://XXXXXX.com/contact-form-ecrm.php',
   database: 'firebase' ,

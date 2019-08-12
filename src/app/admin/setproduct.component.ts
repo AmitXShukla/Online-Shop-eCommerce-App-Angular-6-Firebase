@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { AngularFireStorage } from 'angularfire2/storage';
+// import { AngularFireStorage } from 'angularfire2/storage';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { FirebaseService } from '../services/firebase.service';
 
 @Component({
@@ -30,8 +31,10 @@ export class SetProductComponent implements OnInit, OnDestroy {
     showHostSelfie = false;
     myDocId;
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
+    // @ViewChild(MatPaginator) paginator: MatPaginator;
+    // @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
     displayedColumns = ['category', 'scategory', 'name', 'price', '_id'];
 
     constructor(private _backendService: FirebaseService, private _storage: AngularFireStorage) { }
