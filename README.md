@@ -1,6 +1,6 @@
-<h2>Download Online Store eCommerce App in Angular 6 + Firebase with complete source code</h2>
+<h2>Download Online Store eCommerce App in Angular 9 + Firebase with complete source code</h2>
 <br>
-<b><i>This repository is updated to Angular v8.1.2 now.</i></b>
+<b><i>This repository is updated to Angular v9.0.0 now.</i></b>
 <br>
 <a href="https://www.youtube.com/playlist?list=PLp0TENYyY8lEjtN1YiJTCTFP7OpQ4Fmuo" target="_blank">Click here for Video Tutorial !</a>
 <br>

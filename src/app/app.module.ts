@@ -17,7 +17,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { firebase } from '@firebase/app';
+// import { firebase } from '@firebase/app';
 
 import { AppComponent } from './app.component';
 import { FooterComponent } from './shared/footer/footer.component';
