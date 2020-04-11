@@ -21,8 +21,13 @@ export class FirebaseService {
     private _defaultCenterColl: string = "elish";
     private _userColl: string = "userdb";
     private _eStoreColl: string = "estore";
+    authState: any = null;
     
-    constructor(private _http: HttpClient, public afAuth: AngularFireAuth, private afs: AngularFirestore) { }
+    constructor(private _http: HttpClient, public afAuth: AngularFireAuth, private afs: AngularFirestore) { 
+        this.afAuth.authState.subscribe( authState => {
+            this.authState = authState;
+          });
+    }
 
     getConfig() {
         return environment.social;
@@ -113,7 +118,7 @@ export class FirebaseService {
     getAdminPortal(coll?: string){
         if (!coll || coll == "store") { coll = this._eStoreColl; }
         let x;
-        return this.getDoc(coll,this.afAuth.currentUser.uid);
+        return this.getDoc(coll,this.authState.uid);
     }
     // set product functions start
     getProduct(coll: string, docId: string) {
@@ -183,11 +188,16 @@ export class FirebaseService {
         var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(item.id);
         return docRef.set({
             ...data,
-            author: this.afAuth.currentUser.uid,
-            authorName: this.afAuth.currentUser.displayName,
-            authorEmail: this.afAuth.currentUser.email,
-            authorPhoto: this.afAuth.currentUser.photoURL,
-            authorPhone: this.afAuth.currentUser.phoneNumber,
+            //author: this.afAuth.currentUser.uid,
+            author: this.authState.uid,
+            // authorName: this.afAuth.currentUser.displayName,
+            // authorEmail: this.afAuth.currentUser.email,
+            // authorPhoto: this.afAuth.currentUser.photoURL,
+            // authorPhone: this.afAuth.currentUser.phoneNumber,
+            authorName: this.authState.displayName,
+            authorEmail: this.authState.email,
+            authorPhoto: this.authState.photoURL,
+            authorPhone: this.authState.phoneNumber,
             updatedAt: timestamp,
             createdAt: timestamp,
             delete_flag: "N",
@@ -200,11 +210,11 @@ export class FirebaseService {
         var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(item.id);
         return docRef.set({
             ...data,
-            author: this.afAuth.currentUser.uid,
-            authorName: this.afAuth.currentUser.displayName,
-            authorEmail: this.afAuth.currentUser.email,
-            authorPhoto: this.afAuth.currentUser.photoURL,
-            authorPhone: this.afAuth.currentUser.phoneNumber,
+            author: this.authState.uid,
+            authorName: this.authState.displayName,
+            authorEmail: this.authState.email,
+            authorPhoto: this.authState.photoURL,
+            authorPhone: this.authState.phoneNumber,
             updatedAt: timestamp,
             createdAt: timestamp,
             delete_flag: "N",
@@ -213,7 +223,7 @@ export class FirebaseService {
     getCart(coll: string) {
         return this.afs.collection(this.getCollectionURL(coll), ref =>
             ref.where('delete_flag', '==', 'N')
-                .where('author', '==', this.afAuth.currentUser.uid)
+                .where('author', '==', this.authState.uid)
                 .orderBy('name', 'desc')
         ).valueChanges();
             // .snapshotChanges().map(actions => {
@@ -239,8 +249,8 @@ export class FirebaseService {
             updatedAt: timestamp,
             createdAt: timestamp,
             delete_flag: "N",
-            username: this.afAuth.currentUser.displayName,
-            useremail: this.afAuth.currentUser.email
+            username: this.authState.displayName,
+            useremail: this.authState.email
         });
     }
     updateDoc(coll: string, docId: string, data: any) {
@@ -250,8 +260,8 @@ export class FirebaseService {
             ...data,
             updatedAt: timestamp,
             delete_flag: "N",
-            username: this.afAuth.currentUser.displayName,
-            useremail: this.afAuth.currentUser.email
+            username: this.authState.displayName,
+            useremail: this.authState.email
         });
     }
     deleteDoc(coll: string, docId: string) {
@@ -260,8 +270,8 @@ export class FirebaseService {
         return docRef.update({
             updatedAt: timestamp,
             delete_flag: "Y",
-            username: this.afAuth.currentUser.displayName,
-            useremail: this.afAuth.currentUser.email
+            username: this.authState.displayName,
+            useremail: this.authState.email
         });
     }
     getDocs(coll: string, filters?: any) {
@@ -388,7 +398,7 @@ export class FirebaseService {
 
     getUserAuth(coll?: string, docId?: string) {
         if (!coll) { coll = this._userAuthColl; }
-        if (!docId) { docId = this.afAuth.currentUser.uid }
+        if (!docId) { docId = this.authState.uid }
         return this.getDoc(coll, docId);
     }
     // this method is used when user logs in first time
@@ -408,7 +418,7 @@ export class FirebaseService {
 
     setUser(formData: any, coll?: string, docId?: string) {
         if (!coll) { coll = this._userAuthColl; }
-        if (!docId) { docId = this.afAuth.currentUser.uid }
+        if (!docId) { docId = this.authState.uid }
         //return this.setExistingDoc(coll, docId, formData);
         this.setExistingDoc(coll, docId, formData);
     }
