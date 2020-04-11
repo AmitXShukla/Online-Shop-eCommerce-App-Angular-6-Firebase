@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DataSource } from '@angular/cdk/collections';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+// import { DataSource } from '@angular/cdk/collections';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 // import { AngularFireStorage } from 'angularfire2/storage';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FirebaseService } from '../services/firebase.service';

@@ -43,7 +43,7 @@ export class FirebaseService {
     // sign-up page - create a new user
     createUser(formData) {
         if (environment.database == 'firebase') {
-            return this.afAuth.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password);
+            return this.afAuth.createUserWithEmailAndPassword(formData.value.email, formData.value.password);
         }
         if (environment.database == 'SQL') {
             // need to call SQL API here if a SQL Database is used
@@ -53,13 +53,13 @@ export class FirebaseService {
     // login page - login with FB/GOOGLE/EMAIL, if formData is passed, this means is user is using email/password login
     login(loginType, formData?) {
         if (formData) {
-            return this.afAuth.auth.signInWithEmailAndPassword(formData.email, formData.password);
+            return this.afAuth.signInWithEmailAndPassword(formData.email, formData.password);
         } else {
             let loginMethod;
             if (loginType == 'FB') { loginMethod = new firebase.auth.FacebookAuthProvider(); }
             if (loginType == 'GOOGLE') { loginMethod = new firebase.auth.GoogleAuthProvider() }
 
-            return this.afAuth.auth.signInWithRedirect(loginMethod)
+            return this.afAuth.signInWithRedirect(loginMethod)
         }
     }
 
@@ -69,12 +69,12 @@ export class FirebaseService {
         window.localStorage.removeItem("picture");
         window.localStorage.removeItem("center");
         window.localStorage.removeItem("token");
-        return this.afAuth.auth.signOut();
+        return this.afAuth.signOut();
     }
 
     // method to retreive firebase auth after login redirect
     redirectLogin() {
-        return this.afAuth.auth.getRedirectResult();
+        return this.afAuth.getRedirectResult();
     }
 
     //////////// firebase eStore funcitons START ///////////////
@@ -112,7 +112,8 @@ export class FirebaseService {
 
     getAdminPortal(coll?: string){
         if (!coll || coll == "store") { coll = this._eStoreColl; }
-        return this.getDoc(coll,this.afAuth.auth.currentUser.uid);
+        let x;
+        return this.getDoc(coll,this.afAuth.currentUser.uid);
     }
     // set product functions start
     getProduct(coll: string, docId: string) {
@@ -182,11 +183,11 @@ export class FirebaseService {
         var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(item.id);
         return docRef.set({
             ...data,
-            author: this.afAuth.auth.currentUser.uid,
-            authorName: this.afAuth.auth.currentUser.displayName,
-            authorEmail: this.afAuth.auth.currentUser.email,
-            authorPhoto: this.afAuth.auth.currentUser.photoURL,
-            authorPhone: this.afAuth.auth.currentUser.phoneNumber,
+            author: this.afAuth.currentUser.uid,
+            authorName: this.afAuth.currentUser.displayName,
+            authorEmail: this.afAuth.currentUser.email,
+            authorPhoto: this.afAuth.currentUser.photoURL,
+            authorPhone: this.afAuth.currentUser.phoneNumber,
             updatedAt: timestamp,
             createdAt: timestamp,
             delete_flag: "N",
@@ -199,11 +200,11 @@ export class FirebaseService {
         var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(item.id);
         return docRef.set({
             ...data,
-            author: this.afAuth.auth.currentUser.uid,
-            authorName: this.afAuth.auth.currentUser.displayName,
-            authorEmail: this.afAuth.auth.currentUser.email,
-            authorPhoto: this.afAuth.auth.currentUser.photoURL,
-            authorPhone: this.afAuth.auth.currentUser.phoneNumber,
+            author: this.afAuth.currentUser.uid,
+            authorName: this.afAuth.currentUser.displayName,
+            authorEmail: this.afAuth.currentUser.email,
+            authorPhoto: this.afAuth.currentUser.photoURL,
+            authorPhone: this.afAuth.currentUser.phoneNumber,
             updatedAt: timestamp,
             createdAt: timestamp,
             delete_flag: "N",
@@ -212,7 +213,7 @@ export class FirebaseService {
     getCart(coll: string) {
         return this.afs.collection(this.getCollectionURL(coll), ref =>
             ref.where('delete_flag', '==', 'N')
-                .where('author', '==', this.afAuth.auth.currentUser.uid)
+                .where('author', '==', this.afAuth.currentUser.uid)
                 .orderBy('name', 'desc')
         ).valueChanges();
             // .snapshotChanges().map(actions => {
@@ -238,8 +239,8 @@ export class FirebaseService {
             updatedAt: timestamp,
             createdAt: timestamp,
             delete_flag: "N",
-            username: this.afAuth.auth.currentUser.displayName,
-            useremail: this.afAuth.auth.currentUser.email
+            username: this.afAuth.currentUser.displayName,
+            useremail: this.afAuth.currentUser.email
         });
     }
     updateDoc(coll: string, docId: string, data: any) {
@@ -249,8 +250,8 @@ export class FirebaseService {
             ...data,
             updatedAt: timestamp,
             delete_flag: "N",
-            username: this.afAuth.auth.currentUser.displayName,
-            useremail: this.afAuth.auth.currentUser.email
+            username: this.afAuth.currentUser.displayName,
+            useremail: this.afAuth.currentUser.email
         });
     }
     deleteDoc(coll: string, docId: string) {
@@ -259,8 +260,8 @@ export class FirebaseService {
         return docRef.update({
             updatedAt: timestamp,
             delete_flag: "Y",
-            username: this.afAuth.auth.currentUser.displayName,
-            useremail: this.afAuth.auth.currentUser.email
+            username: this.afAuth.currentUser.displayName,
+            useremail: this.afAuth.currentUser.email
         });
     }
     getDocs(coll: string, filters?: any) {
@@ -387,7 +388,7 @@ export class FirebaseService {
 
     getUserAuth(coll?: string, docId?: string) {
         if (!coll) { coll = this._userAuthColl; }
-        if (!docId) { docId = this.afAuth.auth.currentUser.uid }
+        if (!docId) { docId = this.afAuth.currentUser.uid }
         return this.getDoc(coll, docId);
     }
     // this method is used when user logs in first time
@@ -407,7 +408,7 @@ export class FirebaseService {
 
     setUser(formData: any, coll?: string, docId?: string) {
         if (!coll) { coll = this._userAuthColl; }
-        if (!docId) { docId = this.afAuth.auth.currentUser.uid }
+        if (!docId) { docId = this.afAuth.currentUser.uid }
         //return this.setExistingDoc(coll, docId, formData);
         this.setExistingDoc(coll, docId, formData);
     }

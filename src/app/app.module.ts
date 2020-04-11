@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+
 import { LayoutModule } from '@angular/cdk/layout';
 import { ElishCustomMaterialModule } from './shared/elish.material.module';
 import { NgModule } from '@angular/core';
@@ -44,6 +45,7 @@ import { ShoppingComponent } from './shop/shopping.component';
 import { FileUploadComponent } from './shared/dropzone/fileupload.component';
 import { DropZoneDirective } from './shared/dropzone/dropzone.directive';
 import { FileSizePipe } from './shared/dropzone/filesize.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,7 @@ import { FileSizePipe } from './shared/dropzone/filesize.pipe';
     AngularFireModule.initializeApp(environment.firebase, 'atrackin'), // imports firebase/app needed for everything
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-    AngularFireStorageModule
+    AngularFireStorageModule, BrowserAnimationsModule
   ],
   providers: [AuthGuardService, AuthGuardAdmin],
   bootstrap: [AppComponent]

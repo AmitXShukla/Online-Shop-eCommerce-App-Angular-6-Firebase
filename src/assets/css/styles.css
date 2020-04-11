@@ -196,3 +196,6 @@ list-style-type: square;
   align-items: center;
   height: 60px;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
