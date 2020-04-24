@@ -1,3 +1,5 @@
+# Please give a Star * to this repository if you like this project.
+
 <h2>Download Online Store eCommerce App in Angular 9 Firebase with complete source code</h2>
 <br>
 <b><i>This repository is updated to Angular v9.1.0 now.</i></b>
