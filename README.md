@@ -1,4 +1,7 @@
-# Please give a Star * to this repository if you like this project.
+```diff
++ if you like this project, Please consider,
+- following me on GitHub & a generous STAR * to this repository.
+```
 
 <h2>Download Online Store eCommerce App in Angular 9 Firebase with complete source code</h2>
 <br>
