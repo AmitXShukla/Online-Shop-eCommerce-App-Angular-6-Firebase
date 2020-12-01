@@ -4,10 +4,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 //import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { environment } from '../../environments/environment';
-import { auth } from 'firebase/app';
+// import { auth } from 'firebase/app';
+import auth from 'firebase';
 import { Observable, of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
-import { firestore } from 'firebase/app';
+// import { firestore } from 'firebase/app';
+import firestore from 'firebase';
 
 // import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
@@ -61,8 +63,8 @@ export class FirebaseService {
             return this.afAuth.signInWithEmailAndPassword(formData.email, formData.password);
         } else {
             let loginMethod;
-            if (loginType == 'FB') { loginMethod = new firebase.auth.FacebookAuthProvider(); }
-            if (loginType == 'GOOGLE') { loginMethod = new firebase.auth.GoogleAuthProvider() }
+            if (loginType == 'FB') { loginMethod = new auth.auth.FacebookAuthProvider(); }
+            if (loginType == 'GOOGLE') { loginMethod = new auth.auth.GoogleAuthProvider() }
 
             return this.afAuth.signInWithRedirect(loginMethod)
         }

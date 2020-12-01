@@ -12,7 +12,7 @@
         <button type="button" (click)="getUser()" mat-raised-button color="primary">Refresh</button>
         <button type="button" (click)="logout()" mat-raised-button color="primary">Logout</button>
       </mat-card-actions>
-      <mat-form-field class="example-form">
+      <!-- <mat-form-field class="example-form">
         <input matInput placeholder="name" name="name" #name="ngModel" [ngModel]="this.data?.name" ngModel required minlength="5" maxlength="30">
       </mat-form-field>
       <span *ngIf="name.invalid && (name.dirty || name.touched)">
@@ -34,7 +34,7 @@
         <mat-error *ngIf="password.errors['required']">Password is Required.</mat-error>
         <mat-error *ngIf="password.errors['minlength']">Password can't be less than 5 characters.</mat-error>
         <mat-error *ngIf="password.errors['maxlength']">Password can't be more than 30 characters.</mat-error>
-      </span>
+      </span> -->
     </mat-card-content>
   </form>
 </mat-card>

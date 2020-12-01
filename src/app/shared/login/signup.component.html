@@ -13,7 +13,7 @@
         <mat-error>User ID is already taken.</mat-error>
       </mat-card-actions>
       <div *ngIf="dataLoading">
-        <mat-progress-spinner mode="indeterminate" [attr.color]="primary" [value]="15"></mat-progress-spinner>
+        <mat-progress-spinner mode="indeterminate" [value]="15"></mat-progress-spinner>
       </div>
       <div *ngIf="brokenNetwork" class="label-error">Network connection error.</div>
       <mat-card-actions align="start">

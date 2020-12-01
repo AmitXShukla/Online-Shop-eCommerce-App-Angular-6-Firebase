@@ -16,7 +16,7 @@
           <mat-error>Login credentials are not verified. Here is the error: {{ error }}</mat-error>
         </mat-card-actions>
         <mat-error *ngIf="dataLoading">
-          <mat-progress-spinner mode="indeterminate" [attr.color]="primary" [value]="15"></mat-progress-spinner>
+          <mat-progress-spinner mode="indeterminate" [value]="15"></mat-progress-spinner>
         </mat-error>
         <mat-error *ngIf="brokenNetwork" class="label-error">Network Connection Error.</mat-error>
         <mat-card-actions align="start">

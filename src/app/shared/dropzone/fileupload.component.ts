@@ -26,8 +26,9 @@ export class FileUploadComponent {
         this.isHovering = event;
     }
 
-    startUpload(event: FileList) {
-        const file = event.item(0);
+    startUpload(event: any) {
+        // const file = event.item(0);
+        const file = event.target.files[0];
         if (file.type.split('/')[0] !== 'image') {
             this.error = true;
             console.log('unsupporterd file type');

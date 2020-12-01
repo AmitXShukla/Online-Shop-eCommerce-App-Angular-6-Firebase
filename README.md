@@ -6,9 +6,11 @@
 [<img src="https://github.com/AmitXShukla/AmitXShukla.github.io/blob/master/assets/icons/medium.svg" width=40 height=50>](https://medium.com/@Amit_Shukla)
 [<img src="https://github.com/AmitXShukla/AmitXShukla.github.io/blob/master/assets/icons/twitter_1.svg" width=40 height=50>](https://twitter.com/ashuklax)
 
-<h2>Download Online Store eCommerce App in Angular 9 Firebase with complete source code</h2>
+<h2>Download Online Store eCommerce App in Angular 11 Firebase with complete source code</h2>
 <br>
-<b><i>This repository is updated to Angular v9.1.0 now.</i></b>
+<b><i>This repository is updated to Angular v11.0.0 now.</i></b>
+Please don't forget to update tsconfig.json as well.
+
 <br>
 <a href="https://www.youtube.com/playlist?list=PLp0TENYyY8lEjtN1YiJTCTFP7OpQ4Fmuo" target="_blank">Click here for Video Tutorial !</a>
 <br>

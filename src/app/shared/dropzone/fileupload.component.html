@@ -17,7 +17,7 @@
      <h3>Upload Picture</h3>
      <div class="file">
         <label class="file-label">
-        <input class="file-input" type="file" (change)="startUpload($event.target.files)">
+        <input class="file-input" type="file" (change)="startUpload($event)">
           <span class="file-cta">
             <span class="file-icon">
               <i class="fa fa-upload"></i>
@@ -27,7 +27,7 @@
       </div>
 </div>
 <div *ngIf="snapshot | async as snap">
-  {{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }} 
+  {{ snap.bytesTransferred }} of {{ snap.totalBytes }} 
   <button mat-raised-button color="primary" (click)="task.pause()" class="button is-warning" [disabled]="!isActive(snap)">Pause</button>
   <button mat-raised-button color="primary" (click)="task.cancel()" class="button is-danger" [disabled]="!isActive(snap)">Cancel</button>
   <button mat-raised-button color="primary" (click)="task.resume()" class="button is-info"   [disabled]="!(snap?.state === 'paused')">Resume</button>

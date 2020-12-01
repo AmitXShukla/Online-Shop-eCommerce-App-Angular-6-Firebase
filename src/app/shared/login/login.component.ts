@@ -1,9 +1,7 @@
 import { Component, OnInit,AfterViewInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
-// import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireAuth } from '@angular/fire/auth';
-// import { firebase } from '@firebase/app';
-import { firestore } from 'firebase/app';
+import firestore from 'firebase/app';
 import { environment } from '../../../environments/environment';
 import { FirebaseService } from '../../services/firebase.service';
 import { Observable } from "rxjs/Rx";
@@ -18,6 +16,7 @@ export class LoginComponent implements OnInit, AfterViewInit  {
   error: any;
   dataLoading: boolean = false;
   brokenNetwork = false;
+  isLoggedIn;
 
   constructor(public afAuth: AngularFireAuth, private _router: Router, private _backendService: FirebaseService) { }
 
@@ -32,12 +31,12 @@ export class LoginComponent implements OnInit, AfterViewInit  {
   }
 
   getAuthStatus(){
-    this._backendService.redirectLogin().then(function(result) {
+    this._backendService.redirectLogin().then((result) => {
       if (result.credential) {
         window.localStorage.setItem("displayName",result.user.displayName);
         window.localStorage.setItem("email",result.user.email);
         window.localStorage.setItem("picture",result.user.photoURL);
-        this.isLoggedIn = true;
+        this.isLoggedIn = "try this";
       }
     }).catch(
       (err) => {
