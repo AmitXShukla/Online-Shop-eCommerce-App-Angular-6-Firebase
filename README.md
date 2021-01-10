@@ -47,24 +47,122 @@ Please follow Video Tutorials along installation instruction and proceed to next
 2. Make sure, Firebase Sign-in method include your domain for autherntication.<br>
 3. Open Firebase > Database > rules <br>
 copy paste following code in rules tab, save and publish.<br><br>
-service cloud.firestore {<br>
-  match /databases/{database}/documents {<br>
-  	// rules for estore collections<br>
-  	 match /estore/{document} {<br>
-      allow read: if request.auth.uid == get(/databases/$(database)/documents/estore/$(request.auth.uid)).data.authid;<br>
-      allow write: if false;<br>
-    }<br>
-    match /estore/{document}/product/{prods} {<br>
-      allow read: if true;<br>
-      allow write: if request.auth.uid == get(/databases/$(database)/documents/estore/$(request.auth.uid)).data.authid;<br>
-    }<br>
-    match /estore/{document}/cart/{shoppingcart} {<br>
-      allow read: if isSignedIn() && isDocOwner();<br>
-      allow write: if isSignedIn();<br>
-    }<br>
-    match /estore/{document}/interests/{shoppingcart} {<br>
-      allow read: if false;<br>
-      allow write: if isSignedIn();<br>
+```ts
+service cloud.firestore {
+  match /databases/{database}/documents {
+   
+  	match /onlinestore/{document} {
+    allow read: if false;
+    allow write: if false;
     }
-  }<br>
-}<br>
+    
+    match /onlinestore/elish/admins/{documents} {
+    allow read: if true;
+    allow write: if false;
+    }
+    
+    match /onlinestore/elish/carts/{documents} {
+    allow read: if request.auth.uid!= null && 
+    request.auth.uid == get(/databases/$(database)/documents/onlinestore/elish/carts/$(document)).data.authid;
+    allow write: if request.auth.uid!= null;
+    }
+    
+    match /onlinestore/elish/product/{documents} {
+    allow read: if true;
+    allow write: if request.auth.uid!= null;
+    }
+  
+  	// rules for estore collections
+  	 match /estore/{document} {
+      allow read: if request.auth.uid == get(/databases/$(database)/documents/estore/$(request.auth.uid)).data.authid;
+      allow write: if false;
+    }
+    match /estore/{document}/product/{prods} {
+      allow read: if true;
+      allow write: if request.auth.uid == get(/databases/$(database)/documents/estore/$(request.auth.uid)).data.authid;
+    }
+    match /estore/{document}/cart/{shoppingcart} {
+      allow read: if isSignedIn() && isDocOwner();
+      allow write: if isSignedIn();
+    }
+    match /estore/{document}/interests/{shoppingcart} {
+      allow read: if false;
+      allow write: if isSignedIn();
+    }
+  
+    // rules for PORTALDB collections
+    match /portaldb/{portaldb} {
+      allow read, write: if request.auth.uid != null;
+    }
+    // rules for USERAUTH collections
+    match /userauth/{userauth} {
+      allow read, write: if request.auth.uid != null;
+    }
+    // rules for USERDB collections
+    match /userdb/{user} {
+      allow read, write: if request.auth.uid != null;
+    }
+    
+    // rules for PORTAL collections
+    match /portal/{portaldb} {
+      allow read, write: if request.auth.uid != null;
+    }
+  
+  	// rules for USERS collection
+  	match /users/{users} {
+  	//allow read: if isDocOwner();
+    //allow create: if isSignedIn();
+    //allow write: if isDocOwner() && get(/databases/$(database)/documents/portal/$(request.resource.data.portal)).data.portal == request.resource.data.portal && get(/databases/$(database)/documents/portal/$(request.resource.data.portal)).data.key == request.resource.data.key;
+    allow read, write: if request.auth.uid != null;
+    }
+      
+    }
+  	
+   // helper functions
+    function isDocOwner(){
+    // assuming document has a field author which is uid
+    // Only the authenticated user who authored the document can read or write
+    	return request.auth.uid == resource.data.author;
+      // This above read query will fail
+    // The query fails even if the current user actually is the author of every story document.
+    //  The reason for this behavior is that when Cloud Firestore applies your security rules, 
+    //  it evaluates the query against its potential result set,
+    //   not against the actual properties of documents in your database. 
+    //   If a query could potentially include documents that violate your security rules, 
+    //   the query will fail.
+    //   on your client app, make sure to include following
+    //   .where("author", "==", this.afAuth.auth.currentUser.uid)
+    }
+    function isSignedIn() {
+    // check if user is signed in
+          return request.auth.uid != null;
+    }
+    function isAdmin() {
+    return get(/databases/$(database)/documents/attendanceusers/
+    $(request.auth.uid)).data.isAdmin == true;
+    }
+    
+    // examples from firestore
+    function signedInOrPublic() {
+    // True if the user is signed in or the requested data is 'public'
+    // assuming document has a field name 'visibility'
+      return request.auth.uid != null || resource.data.visibility == 'public';
+    }
+    function getRole(rsc) {
+        // Read from the "roles" map in the resource (rsc).
+          return rsc.data.roles[request.auth.uid];
+		}
+    function isOneOfRoles(rsc, array) {
+          // Determine if the user is one of an array of roles
+          return isSignedIn() && (getRole(rsc) in array);
+    }
+    function onlyContentChanged() {
+          // Ensure that user is not updating their own roles
+          // fields are added to the document.
+            return request.resource.data.roles == '';
+    }
+    function isModuleAdmin() {
+    return get(/databases/$(database)/documents/payrollusers/$(request.auth.uid)).data.roles["admin"] == true;
+    }
+}
+```
